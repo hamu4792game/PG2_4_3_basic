@@ -3,6 +3,10 @@
 struct Vec2 {
 	float x, y;
 };
+//	‹éŒ`‚ÌÕ“Ë”»’è
+bool RectCollision(Vec2 pos, Vec2 size, Vec2 pos2, Vec2 size2);
+//‰~‚ÌÕ“Ë”»’è
+bool BallCollision(Vec2 pos, float radius, Vec2 pos2, float radius2);
 
 class Player
 {
@@ -25,11 +29,17 @@ private:
 	Object player;
 	Object bullet[MAX_Bullet];
 
-public:
+	Object enemy;
+	int frame;
+
+private:
 	void BulletReset();
 	void BulletMove();
 	void PlayerMove();
+	void EnemyMove();
 
+public:
+	void Process();
 	void Draw();
 };
 

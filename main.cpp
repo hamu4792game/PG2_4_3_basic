@@ -24,7 +24,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR lpCmdLine, _In
 		/// ↓更新処理ここから
 		///
 
-		play.PlayerMove();
+		play.Process();
 
 		///
 		/// ↑更新処理ここまで
