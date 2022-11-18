@@ -7,40 +7,21 @@ struct Vec2 {
 bool RectCollision(Vec2 pos, Vec2 size, Vec2 pos2, Vec2 size2);
 //â~ÇÃè’ìÀîªíË
 bool BallCollision(Vec2 pos, float radius, Vec2 pos2, float radius2);
+//	ç¿ïWïœä∑
+Vec2 Change(Vec2 pos);
 
-class Player
+
+struct Object
 {
 public:
-	struct Object
-	{
-	public:
-		Vec2 pos;
-		Vec2 size;
-		float speed;
-		bool alive;
-	};
-
-public:
-	Player();
-
-private:
-	static const int MAX_Bullet = 10;
-
-	Object player;
-	Object bullet[MAX_Bullet];
-
-	Object enemy;
-	int frame;
-
-private:
-	void BulletReset();
-	void BulletMove();
-	void PlayerMove();
-	void EnemyMove();
-
-public:
-	void Process();
-	void Draw();
+	Vec2 pos;
+	Vec2 size;
+	float speed;
+	bool alive;
 };
 
-Vec2 Change(Vec2 pos);
+void PlayerMove(Object* p, char* keys);
+
+void PlayerDraw(Object* p);
+
+void MoveLimit(Object* p);

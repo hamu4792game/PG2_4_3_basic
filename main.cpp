@@ -1,5 +1,4 @@
 ﻿#include <Novice.h>
-#include "Keys.h"
 #include "Player.h"
 
 const char *kWindowTitle = "学籍番号";
@@ -10,7 +9,15 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR lpCmdLine, _In
 	// ライブラリの初期化
 	Novice::Initialize(kWindowTitle, 1280, 720);
 
-	Player play;
+	Object player{
+		{ 0,0 },
+		{ 50,50 },
+		10.0f,
+		true,
+	};
+	// キー入力結果を受け取る箱
+	char keys[256];
+	char preKeys[256];
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -18,13 +25,15 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR lpCmdLine, _In
 		Novice::BeginFrame();
 
 		// キー入力を受け取る
-		Key::Input();
+		memcpy(preKeys, keys, 256);
+		Novice::GetHitKeyStateAll(keys);
 
 		///
 		/// ↓更新処理ここから
 		///
 
-		play.Process();
+		PlayerMove(&player, keys);
+		MoveLimit(&player);
 
 		///
 		/// ↑更新処理ここまで
@@ -34,7 +43,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR lpCmdLine, _In
 		/// ↓描画処理ここから
 		///
 
-		play.Draw();
+		PlayerDraw(&player);
 
 		///
 		/// ↑描画処理ここまで
@@ -44,7 +53,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR lpCmdLine, _In
 		Novice::EndFrame();
 
 		// ESCキーが押されたらループを抜ける
-		if (Key::IsTrigger(DIK_ESCAPE)) {
+		if (keys[DIK_ESCAPE] && !preKeys[DIK_ESCAPE]) {
 			break;
 		}
 	}
