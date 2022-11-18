@@ -1,7 +1,6 @@
 #include <Novice.h>
 #include <math.h>
 #include "Player.h"
-#include "Keys.h"
 
 //	‹éŒ`‚ÌÕ“Ë”»’èˆ—
 bool RectCollision(Vec2 pos, Vec2 size, Vec2 pos2, Vec2 size2) {
